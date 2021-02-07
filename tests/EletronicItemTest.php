@@ -261,4 +261,104 @@ final class EletronicItemTest extends TestCase
         $this->assertIsBool($EletronicItem->getCanBeAddedAsExtra());
         $this->assertEquals(false, $EletronicItem->getCanBeAddedAsExtra());
     }
+
+    public function testToArrayEmpty(): void
+    {
+        $maxExtras     = 0;
+        $EletronicItem = $this->getMockForAbstractClass(
+            ElectronicItem::class,
+            [
+                EletronicTypesEnum::CONSOLE(),
+                $maxExtras,
+            ]
+        );
+
+        $eletronicArray = $EletronicItem->toArray();
+        $this->assertIsArray($eletronicArray);
+        $this->assertArrayHasKey('type', $eletronicArray);
+    }
+
+    public function testToArrayWithoutPrice(): void
+    {
+        $maxExtras     = 0;
+        $EletronicItem = $this->getMockForAbstractClass(
+            ElectronicItem::class,
+            [
+                EletronicTypesEnum::CONSOLE(),
+                $maxExtras,
+            ]
+        );
+
+        $eletronicArray = $EletronicItem->toArray();
+        $this->assertIsArray($eletronicArray);
+        $this->assertArrayHasKey('type', $eletronicArray);
+        $this->assertArrayNotHasKey('price', $eletronicArray);
+    }
+
+    public function testToArrayPriceOk(): void
+    {
+        $maxExtras     = 0;
+        $EletronicItem = $this->getMockForAbstractClass(
+            ElectronicItem::class,
+            [
+                EletronicTypesEnum::CONSOLE(),
+                $maxExtras,
+            ]
+        );
+        $itemPrice = 1.99;
+        $EletronicItem->setPrice($itemPrice);
+
+        $eletronicArray = $EletronicItem->toArray();
+        $this->assertIsArray($eletronicArray);
+        $this->assertArrayHasKey('type', $eletronicArray);
+        $this->assertArrayHasKey('price', $eletronicArray);
+        $this->assertEquals($itemPrice, $eletronicArray['price']);
+    }
+
+    public function testToArrayHasExtraTotalOk(): void
+    {
+        $maxExtras     = 1;
+        $EletronicItem = $this->getMockForAbstractClass(
+            ElectronicItem::class,
+            [
+                EletronicTypesEnum::CONSOLE(),
+                $maxExtras,
+            ]
+        );
+        $itemPrice = 10.99;
+        $EletronicItem->setPrice($itemPrice);
+
+        $Controller      = new Controller(true);
+        $controllerPrice = 1.99;
+        $Controller->setPrice($controllerPrice);
+        $EletronicItem->addExtra($Controller);
+
+        $eletronicArray = $EletronicItem->toArray();
+        $this->assertIsArray($eletronicArray);
+        $this->assertArrayHasKey('total', $eletronicArray);
+        $this->assertEquals($itemPrice + $controllerPrice, $eletronicArray['total']);
+        $this->assertArrayHasKey('extras', $eletronicArray);
+    }
+
+    public function testToArrayNoExtras(): void
+    {
+        $maxExtras     = 0;
+        $EletronicItem = $this->getMockForAbstractClass(
+            ElectronicItem::class,
+            [
+                EletronicTypesEnum::CONSOLE(),
+                $maxExtras,
+            ]
+        );
+        $itemPrice = 10.99;
+        $EletronicItem->setPrice($itemPrice);
+
+        $eletronicArray = $EletronicItem->toArray();
+        $this->assertIsArray($eletronicArray);
+        $this->assertArrayHasKey('price', $eletronicArray);
+        $this->assertEquals($itemPrice, $eletronicArray['price']);
+        $this->assertArrayHasKey('total', $eletronicArray);
+        $this->assertEquals($itemPrice, $eletronicArray['total']);
+        $this->assertArrayNotHasKey('extras', $eletronicArray);
+    }
 }

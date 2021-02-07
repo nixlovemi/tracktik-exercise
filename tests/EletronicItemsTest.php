@@ -146,4 +146,37 @@ final class EletronicItemsTest extends TestCase
         $this->assertIsArray($items);
         $this->assertEquals(0, count($items));
     }
+
+    public function testToArrayInitOk(): void
+    {
+        $ElItems = new ElectronicItems();
+        $toArray = $ElItems->toArray();
+
+        $this->assertIsArray($toArray);
+        $this->assertArrayHasKey('itemsNbr', $toArray);
+        $this->assertEquals(0, $toArray['itemsNbr']);
+        $this->assertArrayHasKey('orderTotal', $toArray);
+        $this->assertEquals(0, $toArray['orderTotal']);
+        $this->assertArrayHasKey('items', $toArray);
+        $this->assertEmpty($toArray['items']);
+    }
+
+    public function testToArrayItemOk(): void
+    {
+        $ElItems = new ElectronicItems();
+
+        $Microwave = new Microwave();
+        $mvPrice   = 25.99;
+        $Microwave->setPrice($mvPrice);
+        $ElItems->addItem($Microwave);
+
+        $toArray = $ElItems->toArray();
+        $this->assertIsArray($toArray);
+        $this->assertArrayHasKey('itemsNbr', $toArray);
+        $this->assertEquals(1, $toArray['itemsNbr']);
+        $this->assertArrayHasKey('orderTotal', $toArray);
+        $this->assertEquals($mvPrice, $toArray['orderTotal']);
+        $this->assertArrayHasKey('items', $toArray);
+        $this->assertNotEmpty($toArray['items']);
+    }
 }

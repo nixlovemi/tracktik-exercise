@@ -145,6 +145,9 @@ abstract class ElectronicItem
         $this->price = $price;
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         $arrJson = [];

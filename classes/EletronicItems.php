@@ -63,6 +63,8 @@ class ElectronicItems
 	}
 
 	/**
+	 * Get an array of sorted items by price (ASC)
+	 * 
 	 * @return array
 	 */
 	function getSortedItems(): array
@@ -75,19 +77,22 @@ class ElectronicItems
 		return $sorted;
 	}
 
+	/**
+	 * @return array
+	 */
 	function toArray(): array
 	{
-		$arrJson = [];
+		$retArray = [];
 
-		$arrJson['itemsNbr']   = $this->getNumberOfItems();
-		$arrJson['orderTotal'] = $this->getTotal();
-		$arrJson['items']      = [];
+		$retArray['itemsNbr']   = $this->getNumberOfItems();
+		$retArray['orderTotal'] = $this->getTotal();
+		$retArray['items']      = [];
 
 		$items = $this->getSortedItems();
 		foreach ($items as $eletronicItem) {
-			$arrJson['items'][] = $eletronicItem->toArray();
+			$retArray['items'][] = $eletronicItem->toArray();
 		}
 
-		return $arrJson;
+		return $retArray;
 	}
 }
