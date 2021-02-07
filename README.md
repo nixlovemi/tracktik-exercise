@@ -5,7 +5,7 @@
 - Run command "composer dump-autoload" to update the autoload files
 - Run command "docker-compose up -d" to create a test PHP server
 - Access http://localhost:3000 to check the answers. I created a very simple frontend to show the two answers in a json format.
-- OR
+- **\*\*\*\*** OR **\*\*\*\***
 - You can access here (https://leandroparra.com.br/tracktik-exercise) to see the answers
 
 ### Tests
