@@ -1,0 +1,19 @@
+{
+    "name": "leandro/track-tik",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Leandro Parra",
+            "email": "leandr.parra.85@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "classes/"
+        ]
+    },
+    "require": {
+        "myclabs/php-enum": "^1.7",
+        "phpunit/phpunit": "^9.5"
+    }
+}
