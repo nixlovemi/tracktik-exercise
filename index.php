@@ -6,6 +6,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 use App\ElectronicItems;
+use App\EletronicTypesEnum;
 use App\EletronicTypes\Console;
 use App\EletronicTypes\Television;
 use App\EletronicTypes\Microwave;
@@ -82,10 +83,6 @@ function createOrdemItemsScenario(): ElectronicItems
     return $OrderItems;
 }
 
-$OrderItems = createOrdemItemsScenario();
-
-echo "<pre>";
-# var_dump($OrderItems->getItems());
-# var_dump($OrderItems->getItemsByType(\App\EletronicTypesEnum::TELEVISION()));
-# var_dump($OrderItems->getSortedItems());
-# var_dump($OrderItems->getTotal());
+$OrderItems   = createOrdemItemsScenario();
+$ConsoleItems = $OrderItems->getItemsByType(EletronicTypesEnum::CONSOLE());
+include('views/exercise.php');

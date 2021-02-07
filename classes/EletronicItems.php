@@ -74,4 +74,20 @@ class ElectronicItems
 
 		return $sorted;
 	}
+
+	function toArray(): array
+	{
+		$arrJson = [];
+
+		$arrJson['itemsNbr']   = $this->getNumberOfItems();
+		$arrJson['orderTotal'] = $this->getTotal();
+		$arrJson['items']      = [];
+
+		$items = $this->getSortedItems();
+		foreach ($items as $eletronicItem) {
+			$arrJson['items'][] = $eletronicItem->toArray();
+		}
+
+		return $arrJson;
+	}
 }

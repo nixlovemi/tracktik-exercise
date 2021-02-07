@@ -144,4 +144,25 @@ abstract class ElectronicItem
         }
         $this->price = $price;
     }
+
+    public function toArray(): array
+    {
+        $arrJson = [];
+
+        if ($this->getPrice() > 0) $arrJson['price'] = $this->getPrice();
+        if ($this->getTotalWithExtra() > 0) $arrJson['total'] = $this->getTotalWithExtra();
+
+        $arrJson['type']  = $this->getType();
+
+        if ($this->getMaxExtras() > 0) {
+            $arrJson['extras'] = [];
+
+            $extras = $this->getExtras();
+            foreach ($extras as $eletronicExtra) {
+                $arrJson['extras'][] = $eletronicExtra->toArray();
+            }
+        }
+
+        return $arrJson;
+    }
 }

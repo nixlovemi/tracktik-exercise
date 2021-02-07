@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  apache:
+    image: 'php:7.2-apache'
+    container_name: php
+    restart: unless-stopped
+    ports:
+      - '3000:80'
+    volumes:
+      - ./:/var/www/html

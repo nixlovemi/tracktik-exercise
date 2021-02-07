@@ -33,4 +33,12 @@ class Controller extends ElectronicItem
     {
         return $this->wired;
     }
+
+    function toArray(): array
+    {
+        $arrJson = parent::toArray();
+        $arrJson['wired']  = $this->getWired();
+
+        return $arrJson;
+    }
 }
