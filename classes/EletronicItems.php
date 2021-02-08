@@ -59,7 +59,8 @@ class ElectronicItems
 		$callback = function ($item) use ($type) {
 			return $item->getType() == $type->__toString();
 		};
-		return array_filter($this->items, $callback);
+		$filtered = array_filter($this->items, $callback);
+		return array_values($filtered);
 	}
 
 	/**

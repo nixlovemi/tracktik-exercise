@@ -157,7 +157,8 @@ abstract class ElectronicItem
 
         $arrJson['type']  = $this->getType();
 
-        if ($this->getMaxExtras() > 0) {
+        // if the eletronic can have extra
+        if ($this->getMaxExtras() != 0) {
             $arrJson['extras'] = [];
 
             $extras = $this->getExtras();
